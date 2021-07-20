@@ -1,8 +1,6 @@
 #!/bin/bash -xe
 
 cmd_install() {
-  apt -y install software-properties-common
-  apt-add-repository universe
   apt install -y --no-install-recommends \
     gdisk fdisk gpart \
     cryptsetup \

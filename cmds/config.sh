@@ -32,12 +32,6 @@ cmd_hostname() {
   " > target/config/etc.pre/hosts
 }
 
-cmd_apt_mirror() {
-  if [[ "x$hexblade_apt_mirror" != "x" ]]; then
-    sed -i.original "s/us\./$hexblade_apt_mirror./g" target/config/etc.pre/apt/sources.list
-  fi
-}
-
 priv_ask() {
   tmp_prompt="${1?'prompt'}" && shift
   tmp_file="${1?'file'}" && shift
@@ -48,7 +42,6 @@ priv_ask() {
 cmd_ask() {
   rm target/config/params.txt || true
   set +x
-  priv_ask 'Change apt mirror (us): ' hexblade_apt_mirror
   priv_ask 'Generate fstab (y/n): ' hexblade_dev_fstab
   priv_ask 'Crypt Partition (blank): ' hexblade_dev_lvm
   priv_ask 'Grub Install Device (blank): ' hexblade_grub_dev
@@ -77,7 +70,6 @@ cmd_all() {
   source target/config/params.txt
   set -x
 
-  cmd_apt_mirror
   cmd_fstab
   cmd_hostname
 }
